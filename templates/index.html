@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard de VeciCuenta{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1 class="display-5 fw-bold mb-2 text-vc-primary">Bienvenido a VeciCuenta</h1>
+        <p class="lead text-muted mb-5">
+            Controle sus ingresos, egresos y conozca su utilidad neta sin complicaciones.
+        </p>
+        
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-arrow-alt-circle-up fa-3x me-3 text-vc-success"></i>
+                            <div>
+                                <h5 class="card-title text-uppercase fw-bold text-vc-success mb-1">Total Ingresos</h5>
+                                <p class="display-6 fw-bolder mb-0">${{ "{:,.2f}".format(resumen.ingresos) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-arrow-alt-circle-down fa-3x me-3 text-danger"></i>
+                            <div>
+                                <h5 class="card-title text-uppercase fw-bold text-danger mb-1">Total Egresos</h5>
+                                <p class="display-6 fw-bolder mb-0">${{ "{:,.2f}".format(resumen.egresos) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="card shadow-lg border-0 bg-vc-primary text-white h-100">
+                    <div class="card-body p-4">
+                         <div class="d-flex align-items-center">
+                            <i class="fas fa-chart-line fa-3x me-3 text-vc-secondary"></i>
+                            <div>
+                                <h5 class="card-title text-uppercase fw-bold mb-1">Utilidad Neta</h5>
+                                <p class="display-6 fw-bolder mb-0">${{ "{:,.2f}".format(resumen.utilidad) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-vc-success text-white fw-bold">
+                        <i class="fas fa-plus-circle me-2"></i> Acciones Rápidas
+                    </div>
+                    <div class="card-body p-3 d-grid gap-3">
+                        <a href="{{ url_for('ingresos') }}" class="btn btn-outline-success btn-lg fw-bold">
+                            <i class="fas fa-arrow-up me-2"></i> Registrar Ingreso
+                        </a>
+                        <a href="{{ url_for('egresos') }}" class="btn btn-outline-danger btn-lg fw-bold">
+                            <i class="fas fa-arrow-down me-2"></i> Registrar Egreso
+                        </a>
+                        <a href="{{ url_for('alertas') }}" class="btn btn-warning btn-lg fw-bold text-dark">
+                            <i class="fas fa-bell me-2"></i> Revisar Alertas de Formalización
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-vc-primary text-white fw-bold">
+                        <i class="fas fa-headset me-2"></i> Soporte
+                    </div>
+                    <div class="card-body">
+                         <p class="text-muted">Si tienes dudas o necesitas orientación:</p>
+                         <ul class="list-unstyled">
+                            <li><i class="fab fa-whatsapp text-vc-success me-2"></i> **WhatsApp:** ¡Escríbenos aquí!</li>
+                            <li><i class="fas fa-user-tie text-vc-primary me-2"></i> **Asesoría Contable:** <a href="{{ url_for('asesoria') }}">Subir documentos</a></li>
+                         </ul>
+                         <p class="small text-muted">Horario: Lunes a viernes de 8:00 a.m. a 6:00 p.m.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

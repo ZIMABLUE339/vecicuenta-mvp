@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Contáctanos{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-vc-primary fw-bold mb-4">Contáctanos</h2>
+        <p class="lead text-muted mb-4">Si tienes dudas o necesitas ayuda con VeciCuenta, comunícate con nosotros:</p>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-vc-primary"><i class="fas fa-headset me-2"></i> Atención al Cliente</h5>
+                        <ul class="list-unstyled mt-3">
+                            <li class="mb-2"><i class="fas fa-envelope me-2 text-vc-success"></i> **Correo:** soporte@vecicuenta.com</li>
+                            <li class="mb-2"><i class="fas fa-phone-alt me-2 text-vc-success"></i> **Teléfono:** +57 312 456 7890</li>
+                            <li class="mb-2"><i class="fab fa-whatsapp me-2 text-vc-success"></i> **WhatsApp:** <a href="https://wa.me/573008255182?text=Hola,%20necesito%20soporte%20con%20VeciCuenta." target="_blank">Escríbenos aquí</a></li>
+                        </ul>
+                        <p class="small text-muted">Atendemos de lunes a viernes de 8:00 a.m. a 6:00 p.m.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-vc-primary"><i class="fas fa-map-marker-alt me-2"></i> Dirección Legal</h5>
+                        <p class="mb-1 text-muted">VeciCuenta S.A.S.</p>
+                        <p class="mb-1 text-muted">Calle Ficticia # 12-34, Bogotá, Colombia.</p>
+                        <p class="mt-3 small text-muted">Operamos principalmente desde nuestra infraestructura en la nube.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

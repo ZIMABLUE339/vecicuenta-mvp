@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Alertas del Negocio{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-danger fw-bold mb-4">Alertas del Negocio y Formalización</h2>
+        <p class="lead text-muted mb-5">Revise las recomendaciones automáticas según sus ingresos anuales. Estas alertas le ayudarán a prepararse para la formalización.</p>
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                {% for alerta in alertas_list %}
+                    <div class="alert alert-{{ alerta.tipo }} shadow-sm">
+                        <p class="fw-bold"><i class="fas fa-{{ 'exclamation-triangle' if alerta.tipo == 'danger' or alerta.tipo == 'warning' else 'info-circle' }} me-2"></i> {{ alerta.mensaje }}</p>
+                    </div>
+                {% endfor %}
+                
+                <div class="card shadow-sm mt-5">
+                    <div class="card-body">
+                        <h5 class="text-vc-primary fw-bold">Resumen de Ingresos Anuales</h5>
+                        <p class="display-6">${{ "{:,.2f}".format(ingresos_anuales) }}</p>
+                        <p class="small text-muted">Total de ingresos registrados en el año actual.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-vc-secondary text-dark fw-bold">
+                        <i class="fas fa-lightbulb me-2"></i> Consejos Clave
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-gavel text-vc-primary me-2"></i> **Formalice** cuando sus ingresos anuales superen los $50.000.000.</li>
+                            <li><i class="fas fa-building text-vc-primary me-2"></i> Regístrese en la **Cámara de Comercio** y en el **RUT (DIAN)**.</li>
+                            <li><i class="fas fa-shield-alt text-vc-primary me-2"></i> **Evite sanciones** manteniendo sus registros actualizados con VeciCuenta.</li>
+                            <li><i class="fas fa-user-tie text-vc-primary me-2"></i> Use la sección de **Asesoría** para hablar con un contador aliado antes de iniciar trámites.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

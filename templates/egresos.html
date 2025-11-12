@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Registrar Egreso{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-danger fw-bold mb-4">Registrar Nuevo Egreso</h2>
+                
+                <div class="card shadow-lg mb-4">
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('egresos') }}">
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label fw-bold">Descripción (Compra de mercancía, pago de servicios, etc.)</label>
+                                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valor" class="form-label fw-bold">Valor ($ COP)</label>
+                                <input type="number" step="0.01" class="form-control" id="valor" name="valor" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-minus-circle me-2"></i> Agregar Egreso</button>
+                        </form>
+                    </div>
+                </div>
+
+                <h4 class="mt-5 text-vc-primary fw-bold">Egresos Registrados Recientemente</h4>
+                
+                {% if transacciones %}
+                <ul class="list-group shadow-sm">
+                    {% for t in transacciones %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="fw-bold">{{ t.descripcion }}</span>
+                            <small class="text-muted d-block">{{ t.fecha.strftime('%Y-%m-%d %H:%M') }}</small>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">${{ "{:,.2f}".format(t.valor) }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="alert alert-info">Aún no hay egresos registrados.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Reporte Financiero{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-vc-primary fw-bold mb-5">Reporte Financiero Consolidado</h2>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card shadow-sm h-100 border-0">
+                    <div class="card-header bg-vc-success text-white fw-bold">
+                        <i class="fas fa-chart-bar me-2"></i> Resumen
+                    </div>
+                    <div class="card-body">
+                        <p class="fw-bold mb-1 text-vc-success">Total Ingresos:</p>
+                        <p class="display-6">${{ "{:,.2f}".format(resumen.ingresos) }}</p>
+
+                        <p class="fw-bold mb-1 text-danger">Total Egresos:</p>
+                        <p class="display-6">${{ "{:,.2f}".format(resumen.egresos) }}</p>
+
+                        <hr>
+                        <p class="fw-bold mb-1 text-vc-primary">Utilidad Neta:</p>
+                        <p class="display-5 fw-bolder text-vc-primary">${{ "{:,.2f}".format(resumen.utilidad) }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-vc-primary text-white fw-bold">
+                        <i class="fas fa-file-export me-2"></i> Herramientas Pro
+                    </div>
+                    <div class="card-body d-grid gap-3">
+                        <p class="lead text-muted">Genere y exporte sus reportes para tener las cuentas listas en caso de formalización o para su contador.</p>
+                        
+                        <a href="#" class="btn btn-warning btn-lg fw-bold text-dark">
+                            <i class="fas fa-file-pdf me-2"></i> Exportar Reporte a PDF
+                        </a>
+                        <a href="#" class="btn btn-warning btn-lg fw-bold text-dark">
+                            <i class="fas fa-file-excel me-2"></i> Exportar Datos a Excel
+                        </a>
+                        
+                        <hr>
+                        <p class="small text-muted">**NOTA:** Estas funciones están disponibles en el **Plan Premium** (Referencia al modelo Freemium).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

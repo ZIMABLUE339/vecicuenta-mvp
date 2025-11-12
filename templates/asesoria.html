@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Asesoría Contable{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-vc-secondary fw-bold mb-4">Asesoría Contable Personalizada</h2>
+                <p class="lead text-muted mb-5">Suba sus documentos o fotos para recibir orientación personalizada de un contador aliado.</p>
+
+                <div class="card shadow-lg">
+                    <div class="card-body p-4">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label fw-bold">Tu Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="correo" class="form-label fw-bold">Tu Correo Electrónico</label>
+                                <input type="email" class="form-control" id="correo" name="correo" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="archivo" class="form-label fw-bold">Documentos o Fotos (Facturas, soportes, etc.)</label>
+                                <input class="form-control" type="file" id="archivo" name="archivo">
+                            </div>
+                            <button type="submit" class="btn btn-vc-success btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i> Enviar Archivo y Solicitar Contacto
+                            </button>
+                            <p class="small text-muted mt-3">Un contador aliado revisará tu información y te contactará en un máximo de 24 horas hábiles.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

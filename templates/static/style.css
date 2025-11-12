@@ -1,0 +1,19 @@
+body {
+    background-color: #f2e8cf;
+}
+
+h1, h2 {
+    color: #354f52;
+}
+
+footer {
+    background-color: #84a98c;
+}
+
+.btn-success {
+    background-color: #e67f6a;
+    border: none;
+}
+.btn-success:hover {
+    background-color: #c25b48;
+}
