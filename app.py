@@ -1,19 +1,16 @@
-# app.py (Versión Simplificada SIN DB)
+# app.py (Versión Simplificada con Persistencia en Sesión)
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
-from gestion_financiera import GestorFinancieroSimulado
+# Importamos la nueva clase de gestión
+from gestion_financiera import GestorFinancieroMemoria 
 
 app = Flask(__name__)
 # Necesitas una clave secreta para usar sesiones y flash
-app.secret_key = 'clave_secreta_simulada' 
+app.secret_key = 'clave_secreta_simulada_para_vecicuenta' 
 
-# 1. INSTANCIAR EL GESTOR SIMULADO
-gestor_financiero = GestorFinancieroSimulado() 
-
-
-# =================================================================
-#                             RUTAS DE SIMULACIÓN
-# =================================================================
+# 1. INSTANCIAR EL GESTOR DE MEMORIA
+# Ya no necesitamos get_db_connection
+gestor_financiero = GestorFinancieroMemoria() 
 
 # --- SIMULACIÓN DE LOGIN / INDEX ---
 @app.route('/')
@@ -22,34 +19,58 @@ def index():
     session['username'] = 'Edwin'
     session['user_id'] = 1 
     
+    # El dashboard lee directamente los datos acumulados en la sesión
     resumen = gestor_financiero.obtener_resumen_financiero(session['user_id'])
     
     return render_template('index.html', resumen=resumen)
 
-# --- SIMULACIÓN DE REGISTRO DE INGRESOS ---
+# --- REGISTRO DE INGRESOS ---
 @app.route('/ingresos', methods=['GET', 'POST'])
 def ingresos():
     if 'username' not in session: return redirect(url_for('index'))
     
     if request.method == 'POST':
-        # Simulamos que el registro fue exitoso
-        flash("Ingreso registrado correctamente (Simulación).", 'success')
-        # Redirigimos para limpiar el formulario, como si la DB se hubiera actualizado
-        return redirect(url_for('ingresos')) 
+        try:
+            descripcion = request.form['descripcion']
+            valor = float(request.form['valor'])
+            
+            # Registramos el dato en la memoria/sesión
+            gestor_financiero.registrar_transaccion(
+                user_id=session['user_id'], 
+                tipo='ingreso', 
+                descripcion=descripcion, 
+                valor=valor
+            )
+            flash("¡Ingreso registrado! El Dashboard se ha actualizado.", 'success')
+            return redirect(url_for('ingresos'))
+        except ValueError:
+            flash("El valor debe ser un número válido.", 'danger')
 
     transacciones = gestor_financiero.obtener_transacciones(session['user_id'], 'ingreso')
     return render_template('ingresos.html', transacciones=transacciones)
 
 
-# --- SIMULACIÓN DE REGISTRO DE EGRESOS ---
+# --- REGISTRO DE EGRESOS ---
 @app.route('/egresos', methods=['GET', 'POST'])
 def egresos():
     if 'username' not in session: return redirect(url_for('index'))
     
     if request.method == 'POST':
-        # Simulamos que el registro fue exitoso
-        flash("Egreso registrado correctamente (Simulación).", 'success')
-        return redirect(url_for('egresos'))
+        try:
+            descripcion = request.form['descripcion']
+            valor = float(request.form['valor'])
+            
+            # Registramos el dato en la memoria/sesión
+            gestor_financiero.registrar_transaccion(
+                user_id=session['user_id'], 
+                tipo='egreso', 
+                descripcion=descripcion, 
+                valor=valor
+            )
+            flash("¡Egreso registrado! El Dashboard se ha actualizado.", 'success')
+            return redirect(url_for('egresos'))
+        except ValueError:
+            flash("El valor debe ser un número válido.", 'danger')
 
     transacciones = gestor_financiero.obtener_transacciones(session['user_id'], 'egreso')
     return render_template('egresos.html', transacciones=transacciones)
@@ -68,7 +89,7 @@ def alertas():
                            ingresos_anuales=ingresos_anuales)
 
 
-# --- RUTAS DE PLANTILLA (Simplemente Renderizan el HTML) ---
+# --- RUTAS DE PLANTILLA (Estáticas) ---
 @app.route('/reportes')
 def reportes():
     if 'username' not in session: return redirect(url_for('index'))
@@ -89,7 +110,10 @@ def contacto():
 def logout():
     session.pop('username', None)
     session.pop('user_id', None)
-    return redirect(url_for('index')) # Redirige al index, que simulará un login
+    # También borramos la data de simulación para que empiece de nuevo
+    if 'transacciones_1' in session: 
+        session.pop('transacciones_1')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
